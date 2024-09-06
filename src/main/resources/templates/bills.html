@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bills</title>
+</head>
+<body>
+    <h1>Bills</h1>
+    <a th:href="@{/}">Home</a>
+    <form th:action="@{/bills}"th:object="${bill}"  method="post">
+        <input type="hidden" th:field="*{id}" />
+        <label>Date:</label><input type="date" th:field="*{date}" /><br>
+        <label>Amount:</label><input type="text" th:field="*{amount}" /><br>
+        <label>Description:</label><input type="text" th:field="*{description}" /><br>
+        <button type="submit">Save Bill</button>
+    </form>
+    <h2>Bill List</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="bill : ${bills}">
+            <td th:text="${bill.id}">ID</td>
+            <td th:text="${bill.date}">Date</td>
+            <td th:text="${bill.amount}">Amount</td>
+            <td th:text="${bill.description}">Description</td>
+            <td>
+                <a th:href="@{/bills/{id}(id=${bill.id})}">Edit</a>
+                <form th:action="@{/bills/{id}(id=${bill.id})}" method="post" style="display:inline;">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

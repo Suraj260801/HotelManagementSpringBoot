@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rooms</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 0; padding: 0;">
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center;">
+            <h1 style="color: #333;">Room Management</h1>
+            <a th:href="@{/}" style="text-decoration: none; color: #007bff;">Home</a>
+            <form th:action="@{/rooms}" th:object="${room}" method="post" style="margin-top: 20px;">
+                <input type="hidden" th:field="*{id}" />
+                <div style="margin-bottom: 10px;">
+                    <label style="display: inline-block; width: 80px; text-align: right;">Type:</label>
+                    <input type="text" th:field="*{type}" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;" />
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label style="display: inline-block; width: 80px; text-align: right;">Price:</label>
+                    <input type="text" th:field="*{price}" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;" />
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: inline-block; width: 80px; text-align: right;">Available:</label>
+                    <input type="checkbox" th:field="*{available}" />
+                </div>
+                <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Save Room</button>
+            </form>
+            <h2 style="color: #333; margin-top: 40px;">Room List</h2>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                <tr style="background-color: #007bff; color: white;">
+                    <th style="padding: 10px; border: 1px solid #ccc;">ID</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">Type</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">Price</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">Available</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">Actions</th>
+                </tr>
+                <tr th:each="room : ${rooms}" style="background-color: #f9f9f9;">
+                    <td th:text="${room.id}" style="padding: 10px; border: 1px solid #ccc;">ID</td>
+                    <td th:text="${room.type}" style="padding: 10px; border: 1px solid #ccc;">Type</td>
+                    <td th:text="${room.price}" style="padding: 10px; border: 1px solid #ccc;">Price</td>
+                    <td th:text="${room.available ? 'Yes' : 'No'}" style="padding: 10px; border: 1px solid #ccc;">Available</td>
+                    <td style="padding: 10px; border: 1px solid #ccc;">
+                        <a th:href="@{/rooms/{id}(id=${room.id})}" style="text-decoration: none; color: #007bff; margin-right: 10px;">Edit</a>
+                        <form th:action="@{/rooms/{id}/delete(id=${room.id})}" method="post" style="display: inline;">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

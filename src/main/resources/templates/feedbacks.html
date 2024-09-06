@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Feedback</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 0; padding: 0;">
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center; width: 500px;">
+            <h1 style="color: #333;">Feedback</h1>
+            <a th:href="@{/}" style="text-decoration: none; color: #007bff;">Home</a>
+            <form th:action="@{/feedbacks}" th:object="${feedback}" method="post" style="margin-top: 20px;">
+                <input type="hidden" th:field="*{id}" />
+                <div style="margin-bottom: 10px;">
+                    <label style="display: inline-block; width: 80px; text-align: right;">Name:</label>
+                    <input type="text" th:field="*{name}" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px; width: calc(100% - 100px);" />
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label style="display: inline-block; width: 80px; text-align: right;">Email:</label>
+                    <input type="email" th:field="*{email}" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px; width: calc(100% - 100px);" />
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: inline-block; width: 80px; text-align: right;">Feedback:</label>
+                    <textarea th:field="*{feedback}" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px; width: calc(100% - 100px); height: 100px;"></textarea>
+                </div>
+                <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Save Feedback</button>
+            </form>
+            <h2 style="color: #333; margin-top: 40px;">Feedback List</h2>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                <tr style="background-color: #007bff; color: white;">
+                    <th style="padding: 10px; border: 1px solid #ccc;">ID</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">Name</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">Email</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">Feedback</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">Actions</th>
+                </tr>
+                <tr th:each="feedback : ${feedbacks}" style="background-color: #f9f9f9;">
+                    <td th:text="${feedback.id}" style="padding: 10px; border: 1px solid #ccc;">ID</td>
+                    <td th:text="${feedback.name}" style="padding: 10px; border: 1px solid #ccc;">Name</td>
+                    <td th:text="${feedback.email}" style="padding: 10px; border: 1px solid #ccc;">Email</td>
+                    <td th:text="${feedback.feedback}" style="padding: 10px; border: 1px solid #ccc;">Feedback</td>
+                    <td style="padding: 10px; border: 1px solid #ccc;">
+                        <a th:href="@{/feedbacks/{id}(id=${feedback.id})}" style="text-decoration: none; color: #007bff; margin-right: 10px;">Edit</a>
+                        <form th:action="@{/feedbacks/{id}(id=${feedback.id})}" method="post" style="display: inline;">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

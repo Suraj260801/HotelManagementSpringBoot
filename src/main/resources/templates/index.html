@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hotel Management System</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="./css/index_style.css"> -->
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Hotel Management System</h1>
+        <nav>
+            <ul>
+                <li><a th:href="@{/rooms}">Rooms</a></li>
+                <li><a th:href="@{/foods}">Food Menu</a></li>
+                <li><a th:href="@{/bills}">Bills</a></li>
+                <li><a th:href="@{/feedbacks}">Feedback</a></li>
+                <li><a th:href="@{/complaints}">Complaints</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+</body>
+</html>
