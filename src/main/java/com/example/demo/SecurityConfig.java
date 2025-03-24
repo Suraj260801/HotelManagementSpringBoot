@@ -24,7 +24,7 @@ public class SecurityConfig {
         // Using the new approach for configuring HttpSecurity
         http
                 .csrf(csrf -> csrf.disable())  // Disable CSRF
-                .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth .requestMatchers("/rooms/**").hasRole("USER")
                         .anyRequest().authenticated()  // All endpoints require authentication
                 )
                 .httpBasic(Customizer.withDefaults());  // Enable HTTP Basic authentication
@@ -47,6 +47,11 @@ public class SecurityConfig {
         UserDetails user = User.withUsername("user")
                 .password("{noop}password")  // NoOpPasswordEncoder for simplicity
                 .roles("USER")   // Assign the "USER" role to this user
+                .build();
+
+        UserDetails admin = User.withUsername("admin")
+                .password("{noop}adminpass")
+                .roles("ADMIN")  // Admin user
                 .build();
 
         // Return an in-memory user details manager that manages this user
